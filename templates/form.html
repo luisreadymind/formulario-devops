@@ -372,20 +372,26 @@
             margin-bottom: 1rem;
         }
 
-        .logo-icon {
-            width: 80px;
+        .logo-image {
+            width: 120px;
             height: 80px;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            color: white;
-            box-shadow: 
-                0 10px 30px rgba(0,212,255,0.3),
-                inset 0 0 0 2px rgba(255,255,255,0.2);
             animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .readymind-logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .readymind-logo-img:hover {
+            filter: brightness(1.2) contrast(1.2);
+            transform: scale(1.05);
         }
 
         @keyframes logoFloat {
@@ -591,10 +597,9 @@
                 gap: 1rem;
             }
 
-            .logo-icon {
-                width: 60px;
+            .logo-image {
+                width: 90px;
                 height: 60px;
-                font-size: 2rem;
             }
 
             .logo-text h2 {
@@ -818,17 +823,20 @@
             margin-bottom: 1rem;
         }
 
-        .logo-icon-small {
-            width: 50px;
+        .logo-image-small {
+            width: 70px;
             height: 50px;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: white;
             animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .readymind-logo-img-small {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+            filter: brightness(1.1);
         }
 
         .logo-text-small {
@@ -972,8 +980,8 @@
             <div class="welcome-card">
                 <div class="welcome-header">
                     <div class="readymind-logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-brain"></i>
+                        <div class="logo-image">
+                            <img src="{{ url_for('static', filename='logo_readymind.webp') }}" alt="ReadyMind Logo" class="readymind-logo-img">
                         </div>
                         <div class="logo-text">
                             <h2>Ready<span class="logo-highlight">Mind</span></h2>
@@ -1867,8 +1875,8 @@
                     <div class="farewell-card">
                         <div class="farewell-header">
                             <div class="readymind-logo-small">
-                                <div class="logo-icon-small">
-                                    <i class="fas fa-brain"></i>
+                                <div class="logo-image-small">
+                                    <img src="{{ url_for('static', filename='logo_readymind.webp') }}" alt="ReadyMind Logo" class="readymind-logo-img-small">
                                 </div>
                                 <div class="logo-text-small">
                                     <span class="logo-brand">Ready<span class="logo-highlight">Mind</span></span>
@@ -1967,8 +1975,8 @@
                     <div class="container">
                         <div class="farewell-container">
                             <div class="readymind-logo-large">
-                                <div class="logo-icon-large">
-                                    <i class="fas fa-brain"></i>
+                                <div class="logo-image-large">
+                                    <img src="{{ url_for('static', filename='logo_readymind.webp') }}" alt="ReadyMind Logo" class="readymind-logo-img-large">
                                 </div>
                                 <div class="logo-text-large">
                                     <h1>Ready<span class="logo-highlight">Mind</span></h1>
@@ -2035,18 +2043,21 @@
                         margin-bottom: 2rem;
                     }
                     
-                    .logo-icon-large {
-                        width: 100px;
+                    .logo-image-large {
+                        width: 150px;
                         height: 100px;
-                        background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-                        border-radius: 50%;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        font-size: 3rem;
-                        color: white;
                         margin: 0 auto 1rem;
                         animation: logoFloat 3s ease-in-out infinite;
+                    }
+
+                    .readymind-logo-img-large {
+                        max-width: 100%;
+                        max-height: 100%;
+                        height: auto;
+                        filter: brightness(1.1);
                     }
                     
                     .logo-text-large h1 {
