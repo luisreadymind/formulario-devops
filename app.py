@@ -394,14 +394,19 @@ def submit_form():
             'empresa': request.form.get('client_company', '').strip()
         }
         
-        # Validar datos requeridos
+        # Validar datos requeridos del cliente
         if not client_data['nombre'] or not client_data['email']:
             return jsonify({'error': 'Nombre y email son requeridos'}), 400
         
-        # Obtener respuestas del cuestionario
-        responses = {}
+        # Cargar cuestionario y obtener respuestas
         questionnaire = load_questionnaire()
+        if not questionnaire:
+            return jsonify({'error': 'Error cargando el cuestionario'}), 500
         
+        responses = {}
+        unanswered_questions = []
+        
+        # Validar que todas las preguntas estén respondidas
         for area in questionnaire['areas']:
             for question in area['preguntas']:
                 question_id = question['id']
@@ -409,14 +414,35 @@ def submit_form():
                 if question['tipo'] == 'multi':
                     # Preguntas de selección múltiple
                     responses[question_id] = request.form.getlist(question_id)
+                    if not responses[question_id]:  # Lista vacía significa no respondida
+                        unanswered_questions.append({
+                            'id': question_id,
+                            'text': question['texto'],
+                            'area': f"{area['id']}. {area['nombre']}"
+                        })
                 else:
                     # Preguntas de selección única
                     responses[question_id] = request.form.get(question_id, '')
+                    if not responses[question_id]:  # String vacío significa no respondida
+                        unanswered_questions.append({
+                            'id': question_id,
+                            'text': question['texto'],
+                            'area': f"{area['id']}. {area['nombre']}"
+                        })
                 
                 # Manejar campo "Otro"
                 other_field_id = f"{question_id}_otro"
                 if request.form.get(other_field_id):
                     responses[f"{question_id}_otro"] = request.form.get(other_field_id)
+        
+        # Verificar si hay preguntas sin responder
+        if unanswered_questions:
+            return jsonify({
+                'error': 'Por favor complete todas las preguntas antes de enviar el formulario',
+                'validation_error': True,
+                'unanswered_questions': unanswered_questions,
+                'total_questions': len(unanswered_questions)
+            }), 400
         
         # Generar PDF
         pdf_filename = generate_pdf_report(client_data, questionnaire, responses)
