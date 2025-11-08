@@ -1,0 +1,391 @@
+{
+  "analysis_result": {
+    "data": {
+      "data": {
+        "analysis": {
+          "capacidadWAF": [
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "ReadyMind Tecnología carece de automatización en sus procesos operacionales, lo que afecta la resiliencia y la capacidad de recuperación. Se recomienda implementar Azure Monitor para mejorar la observabilidad, Application Insights para telemetría detallada y Azure Automation para runbooks que automaticen tareas repetitivas. Estos servicios ayudarán a identificar y resolver problemas operativos de manera proactiva, mejorando la eficiencia y reduciendo el tiempo de inactividad.",
+              "pilar": "Excelencia Operacional",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "La seguridad es una preocupación crítica, ya que no hay evidencia de gestión de secretos o protección de código. Se recomienda utilizar Azure Key Vault para la gestión segura de secretos, GitHub Advanced Security para escaneo de código y Microsoft Defender for Cloud para proteger las cargas de trabajo. Estos servicios ayudarán a mitigar riesgos de seguridad y asegurar el cumplimiento normativo, protegiendo los activos digitales de la empresa.",
+              "pilar": "Seguridad",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "La confiabilidad del sistema es baja debido a la falta de automatización y pruebas. Se recomienda implementar Azure DevOps para establecer pipelines CI/CD, Azure Site Recovery para recuperación ante desastres y Azure Backup para protección de datos. Estos servicios mejorarán la capacidad de recuperación y garantizarán la continuidad del negocio en caso de fallos, reduciendo el riesgo de pérdida de datos y tiempo de inactividad.",
+              "pilar": "Confiabilidad",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "No se han identificado prácticas de optimización de costos. Se recomienda utilizar Azure Cost Management + Billing para analizar el gasto, Azure Advisor para recomendaciones de ahorro y Azure Automation para apagar recursos no productivos. Estas herramientas ayudarán a reducir costos operativos y mejorar la eficiencia del uso de recursos, permitiendo una mejor gestión financiera de la infraestructura en la nube.",
+              "pilar": "Optimización de Costos",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "La falta de políticas de gobernanza es evidente. Se recomienda implementar Azure Policy para la aplicación automática de políticas, Azure Blueprints para plantillas de gobernanza y Microsoft Purview para el gobierno de datos. Estos servicios establecerán un marco de gobernanza sólido, asegurando el cumplimiento normativo y la gestión adecuada de los recursos en la nube, reduciendo riesgos de cumplimiento y mejorando la transparencia.",
+              "pilar": "Gobernanza",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "No hay evidencia de prácticas de CI/CD o pruebas de rendimiento. Se recomienda utilizar Azure DevOps para optimizar pipelines, Azure Load Testing para pruebas de carga y Application Insights para monitoreo de rendimiento. Estos servicios mejorarán la eficiencia del desarrollo y la entrega de software, permitiendo una detección temprana de problemas de rendimiento y asegurando una experiencia de usuario óptima.",
+              "pilar": "Desempeño y Eficiencia",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "La colaboración entre equipos es limitada debido a la falta de herramientas adecuadas. Se recomienda implementar Azure DevOps Boards para la gestión ágil del trabajo, GitHub para la colaboración en código y Microsoft Teams para la comunicación integrada. Estas herramientas fomentarán una cultura DevOps más colaborativa, mejorando la comunicación y la eficiencia del equipo, y reduciendo los silos organizacionales.",
+              "pilar": "Cultura y Colaboración",
+              "puntaje": 1
+            },
+            {
+              "nivelCMMI": "INICIAL",
+              "observaciones": "No se han identificado prácticas de sostenibilidad. Se recomienda utilizar Azure Container Registry para la gestión de imágenes, Azure Artifacts para la gestión de dependencias y GitHub Dependabot para la actualización automática de dependencias. Estos servicios ayudarán a reducir la deuda técnica y mejorar la escalabilidad de las soluciones, asegurando un desarrollo sostenible y eficiente a largo plazo.",
+              "pilar": "Sostenibilidad",
+              "puntaje": 1
+            }
+          ],
+          "cliente": "ReadyMind Tecnología",
+          "evaluador": "Equipo Arquitectura Azure DevOps",
+          "fechaAssessment": "2025-08",
+          "planTrabajo": {
+            "horasMaximas": 400,
+            "horasSemanalesPorRecurso": 40,
+            "periodoMaximoMeses": 4,
+            "resumenRoles": [
+              {
+                "horas": 100,
+                "porcentaje": 25,
+                "rol": "Arquitecto Cloud"
+              },
+              {
+                "horas": 150,
+                "porcentaje": 37.5,
+                "rol": "DevOps Engineer"
+              },
+              {
+                "horas": 100,
+                "porcentaje": 25,
+                "rol": "QA Engineer"
+              },
+              {
+                "horas": 50,
+                "porcentaje": 12.5,
+                "rol": "PM"
+              }
+            ],
+            "tareasDetalladas": [
+              {
+                "dependencia": "",
+                "descripcion": "Implementar escaneo de código en el pipeline mediante la integración de GitHub Advanced Security para detectar vulnerabilidades y secretos expuestos",
+                "fase": "MES_1",
+                "horas_estimadas": 40,
+                "id_tarea": "T1",
+                "prioridad": "ALTA",
+                "rol": "DevOps Engineer"
+              },
+              {
+                "dependencia": "T1",
+                "descripcion": "Configurar GitHub Copilot para el equipo de desarrollo para acelerar la escritura de código y mejorar la productividad mediante IA",
+                "fase": "MES_1",
+                "horas_estimadas": 30,
+                "id_tarea": "T2",
+                "prioridad": "ALTA",
+                "rol": "Arquitecto Cloud"
+              },
+              {
+                "dependencia": "T2",
+                "descripcion": "Establecer pipelines CI/CD utilizando Azure DevOps para automatizar el proceso de despliegue",
+                "fase": "MES_2",
+                "horas_estimadas": 60,
+                "id_tarea": "T3",
+                "prioridad": "ALTA",
+                "rol": "DevOps Engineer"
+              },
+              {
+                "dependencia": "T3",
+                "descripcion": "Configurar Azure Key Vault para la gestión segura de secretos y certificados",
+                "fase": "MES_2",
+                "horas_estimadas": 20,
+                "id_tarea": "T4",
+                "prioridad": "ALTA",
+                "rol": "Arquitecto Cloud"
+              },
+              {
+                "dependencia": "T4",
+                "descripcion": "Implementar Azure Monitor para mejorar la observabilidad y el monitoreo proactivo de la infraestructura",
+                "fase": "MES_3",
+                "horas_estimadas": 50,
+                "id_tarea": "T5",
+                "prioridad": "ALTA",
+                "rol": "QA Engineer"
+              },
+              {
+                "dependencia": "T5",
+                "descripcion": "Configurar Azure Policy para asegurar el cumplimiento normativo y la aplicación de políticas",
+                "fase": "MES_3",
+                "horas_estimadas": 30,
+                "id_tarea": "T6",
+                "prioridad": "MEDIA",
+                "rol": "Arquitecto Cloud"
+              },
+              {
+                "dependencia": "T6",
+                "descripcion": "Utilizar Azure Cost Management + Billing para analizar y optimizar el gasto en la nube",
+                "fase": "MES_3",
+                "horas_estimadas": 20,
+                "id_tarea": "T7",
+                "prioridad": "MEDIA",
+                "rol": "PM"
+              },
+              {
+                "dependencia": "T7",
+                "descripcion": "Implementar Azure Load Testing para realizar pruebas de carga y asegurar el rendimiento",
+                "fase": "MES_4",
+                "horas_estimadas": 40,
+                "id_tarea": "T8",
+                "prioridad": "MEDIA",
+                "rol": "QA Engineer"
+              },
+              {
+                "dependencia": "T8",
+                "descripcion": "Configurar Azure Site Recovery para mejorar la recuperación ante desastres",
+                "fase": "MES_4",
+                "horas_estimadas": 60,
+                "id_tarea": "T9",
+                "prioridad": "ALTA",
+                "rol": "DevOps Engineer"
+              },
+              {
+                "dependencia": "T9",
+                "descripcion": "Implementar Azure Automation para automatizar tareas repetitivas y mejorar la eficiencia operativa",
+                "fase": "MES_4",
+                "horas_estimadas": 50,
+                "id_tarea": "T10",
+                "prioridad": "MEDIA",
+                "rol": "DevOps Engineer"
+              }
+            ]
+          },
+          "proyeccionEvolucion": [
+            {
+              "capacidadesImplementadas": [
+                "Escaneo de código con GitHub Advanced Security",
+                "Productividad mejorada con GitHub Copilot"
+              ],
+              "kpisEsperados": {
+                "changeFailureRate": "30%",
+                "deploymentFrequency": "1 vez por semana",
+                "leadTime": "10 días"
+              },
+              "madurezEsperada": 20,
+              "mes": 1
+            },
+            {
+              "capacidadesImplementadas": [
+                "Pipelines CI/CD con Azure DevOps",
+                "Gestión segura de secretos con Azure Key Vault"
+              ],
+              "kpisEsperados": {
+                "changeFailureRate": "25%",
+                "deploymentFrequency": "2 veces por semana",
+                "leadTime": "8 días"
+              },
+              "madurezEsperada": 35,
+              "mes": 2
+            },
+            {
+              "capacidadesImplementadas": [
+                "Monitoreo proactivo con Azure Monitor",
+                "Cumplimiento normativo con Azure Policy"
+              ],
+              "kpisEsperados": {
+                "changeFailureRate": "20%",
+                "deploymentFrequency": "3 veces por semana",
+                "leadTime": "6 días"
+              },
+              "madurezEsperada": 50,
+              "mes": 3
+            },
+            {
+              "capacidadesImplementadas": [
+                "Pruebas de carga con Azure Load Testing",
+                "Recuperación ante desastres con Azure Site Recovery"
+              ],
+              "kpisEsperados": {
+                "changeFailureRate": "15%",
+                "deploymentFrequency": "4 veces por semana",
+                "leadTime": "4 días"
+              },
+              "madurezEsperada": 65,
+              "mes": 4
+            }
+          ],
+          "recomendaciones": [
+            {
+              "descripcion": "Implementar Azure Monitor para mejorar la observabilidad y el monitoreo proactivo de la infraestructura.",
+              "esfuerzo": "MEDIO",
+              "id": 1,
+              "impactoEsperado": "Mejorará la capacidad de identificar y resolver problemas operativos de manera proactiva.",
+              "prioridad": "ALTA",
+              "servicioAzure": "Azure Monitor"
+            },
+            {
+              "descripcion": "Configurar Azure Key Vault para la gestión segura de secretos y certificados.",
+              "esfuerzo": "BAJO",
+              "id": 2,
+              "impactoEsperado": "Aumentará la seguridad de los datos sensibles y reducirá el riesgo de exposición.",
+              "prioridad": "ALTA",
+              "servicioAzure": "Azure Key Vault"
+            },
+            {
+              "descripcion": "Establecer pipelines CI/CD utilizando Azure DevOps para automatizar el proceso de despliegue.",
+              "esfuerzo": "ALTO",
+              "id": 3,
+              "impactoEsperado": "Aumentará la eficiencia del desarrollo y reducirá el tiempo de entrega de software.",
+              "prioridad": "ALTA",
+              "servicioAzure": "Azure DevOps"
+            },
+            {
+              "descripcion": "Implementar GitHub Advanced Security para escanear vulnerabilidades y secretos en el código.",
+              "esfuerzo": "MEDIO",
+              "id": 4,
+              "impactoEsperado": "Reducirá el riesgo de vulnerabilidades de seguridad en el código fuente.",
+              "prioridad": "ALTA",
+              "servicioAzure": "GitHub Advanced Security"
+            },
+            {
+              "descripcion": "Utilizar Azure Cost Management + Billing para analizar y optimizar el gasto en la nube.",
+              "esfuerzo": "BAJO",
+              "id": 5,
+              "impactoEsperado": "Permitirá una mejor gestión financiera y optimización de costos.",
+              "prioridad": "MEDIA",
+              "servicioAzure": "Azure Cost Management + Billing"
+            },
+            {
+              "descripcion": "Configurar Azure Policy para asegurar el cumplimiento normativo y la aplicación de políticas.",
+              "esfuerzo": "MEDIO",
+              "id": 6,
+              "impactoEsperado": "Asegurará el cumplimiento normativo y reducirá riesgos de gobernanza.",
+              "prioridad": "MEDIA",
+              "servicioAzure": "Azure Policy"
+            },
+            {
+              "descripcion": "Implementar Azure Load Testing para realizar pruebas de carga y asegurar el rendimiento.",
+              "esfuerzo": "MEDIO",
+              "id": 7,
+              "impactoEsperado": "Mejorará el rendimiento y la capacidad de respuesta de las aplicaciones.",
+              "prioridad": "MEDIA",
+              "servicioAzure": "Azure Load Testing"
+            },
+            {
+              "descripcion": "Utilizar Azure DevOps Boards para la gestión ágil del trabajo y mejorar la colaboración.",
+              "esfuerzo": "BAJO",
+              "id": 8,
+              "impactoEsperado": "Fomentará una cultura de colaboración y mejorará la eficiencia del equipo.",
+              "prioridad": "MEDIA",
+              "servicioAzure": "Azure DevOps Boards"
+            },
+            {
+              "descripcion": "Configurar Azure Site Recovery para mejorar la recuperación ante desastres.",
+              "esfuerzo": "ALTO",
+              "id": 9,
+              "impactoEsperado": "Aumentará la resiliencia y la capacidad de recuperación ante fallos.",
+              "prioridad": "ALTA",
+              "servicioAzure": "Azure Site Recovery"
+            },
+            {
+              "descripcion": "Implementar Azure Automation para automatizar tareas repetitivas y mejorar la eficiencia operativa.",
+              "esfuerzo": "MEDIO",
+              "id": 10,
+              "impactoEsperado": "Reducirá el tiempo dedicado a tareas manuales y mejorará la eficiencia.",
+              "prioridad": "MEDIA",
+              "servicioAzure": "Azure Automation"
+            }
+          ],
+          "resultadoGlobal": {
+            "areasCriticas": [
+              "Planificación y Gestión Ágil",
+              "Seguridad y Cumplimiento"
+            ],
+            "areasFuertes": [],
+            "nivelPredominante": "INICIAL",
+            "puntuacionTotal": 10
+          },
+          "resumenEjecutivo": {
+            "diagnostico": "El estado actual de ReadyMind Tecnología en términos de madurez DevOps es extremadamente bajo, con una falta total de respuestas en todas las áreas evaluadas. Esto indica una ausencia de prácticas establecidas en planificación ágil, control de versiones, CI/CD, infraestructura como código, seguridad y observabilidad. La falta de información sugiere un riesgo significativo para la operación continua y segura de sus servicios, exponiéndolos a vulnerabilidades y fallos operativos.",
+            "hallazgosPrincipales": [
+              "Ausencia total de planificación y gestión ágil.",
+              "Falta de control de versiones y calidad de código.",
+              "Inexistencia de pipelines CI/CD y gestión de releases.",
+              "Deficiencias críticas en seguridad y cumplimiento."
+            ],
+            "impactoNegocio": "La falta de prácticas DevOps maduras impacta negativamente en la capacidad de ReadyMind Tecnología para entregar software de manera eficiente y segura. Los riesgos operativos incluyen tiempos de inactividad prolongados, vulnerabilidades de seguridad no gestionadas y una velocidad de entrega de software extremadamente baja. Esto puede resultar en una pérdida de confianza por parte de los clientes y una disminución en la competitividad del mercado.",
+            "madurezGlobal": 10
+          },
+          "roadmap": [
+            {
+              "entregables": [
+                "Integración de GitHub Advanced Security",
+                "Configuración de GitHub Copilot"
+              ],
+              "mes": 1,
+              "objetivos": [
+                "Mejorar la seguridad del código",
+                "Aumentar la productividad del desarrollo"
+              ]
+            },
+            {
+              "entregables": [
+                "Pipelines CI/CD en Azure DevOps",
+                "Gestión de secretos con Azure Key Vault"
+              ],
+              "mes": 2,
+              "objetivos": [
+                "Automatizar despliegues",
+                "Asegurar datos sensibles"
+              ]
+            },
+            {
+              "entregables": [
+                "Monitoreo con Azure Monitor",
+                "Políticas de cumplimiento con Azure Policy"
+              ],
+              "mes": 3,
+              "objetivos": [
+                "Mejorar la observabilidad",
+                "Asegurar el cumplimiento normativo"
+              ]
+            },
+            {
+              "entregables": [
+                "Pruebas de carga con Azure Load Testing",
+                "Recuperación ante desastres con Azure Site Recovery"
+              ],
+              "mes": 4,
+              "objetivos": [
+                "Asegurar el rendimiento",
+                "Mejorar la resiliencia"
+              ]
+            }
+          ]
+        },
+        "jsonUrl": "https://devopsassessstorage.blob.core.windows.net/devopsbireports/report_1762589389841_reporte_devops_ReadyMind_Testing_Suite_20251108_080915.pdf.json",
+        "reportUrl": "https://devopsassessstorage.blob.core.windows.net/devopsbireports/report_1762589389841_reporte_devops_ReadyMind_Testing_Suite_20251108_080915.pdf.html"
+      },
+      "status": "success"
+    },
+    "success": true
+  },
+  "message": "Formulario procesado exitosamente. Análisis DevOps completado.",
+  "pdf_filename": "reporte_devops_ReadyMind_Testing_Suite_20251108_080915.pdf",
+  "success": true
+}

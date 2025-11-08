@@ -773,6 +773,189 @@
                 margin: 0.25rem 0;
             }
         }
+
+        /* Estilos para el mensaje de despedida en el modal */
+        .farewell-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--rm-primary);
+        }
+
+        .farewell-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .farewell-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .farewell-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .readymind-logo-small {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon-small {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .logo-text-small {
+            text-align: left;
+        }
+
+        .logo-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-tagline-small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: rgba(255,255,255,0.8);
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        .farewell-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .farewell-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .farewell-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            text-align: center;
+        }
+
+        .next-steps {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .next-steps h6 {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .steps-list li i {
+            color: #00ff88;
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+            color: #ffd700;
+        }
+
+        .window-close-notice {
+            margin-top: 1rem;
+        }
+
+        .window-close-notice .alert {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.9);
+            border-radius: 8px;
+        }
+
+        /* Responsive para despedida */
+        @media (max-width: 768px) {
+            .readymind-logo-small {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .logo-text-small {
+                text-align: center;
+            }
+
+            .farewell-card {
+                padding: 1.5rem;
+            }
+
+            .farewell-title {
+                font-size: 1.4rem;
+            }
+
+            .farewell-text {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1043,7 +1226,7 @@
                         <i class="fas fa-chart-line me-2"></i>
                         Análisis DevOps Completado
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" onclick="closeModalWithFarewell()"></button>
                 </div>
                 <div class="modal-body" id="analysisModalBody">
                     <div class="text-center">
@@ -1054,7 +1237,7 @@
                     </div>
                 </div>
                 <div class="modal-footer" id="analysisModalFooter">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModalWithFarewell()">Cerrar</button>
                     <a href="#" id="downloadReportBtn" class="btn btn-primary" style="display: none;">
                         <i class="fas fa-download me-2"></i>Descargar PDF Original
                     </a>
@@ -1588,10 +1771,11 @@
             }
 
             // Procesar resultado de la API
+            let analysisContent = '';
             if (data.analysis_result && data.analysis_result.success) {
                 const apiData = data.analysis_result.data;
                 
-                modalBody.innerHTML = `
+                analysisContent = `
                     <div class="analysis-success">
                         <i class="fas fa-check-circle me-2"></i>
                         <strong>¡Análisis DevOps completado exitosamente!</strong>
@@ -1644,7 +1828,7 @@
                     analysisBtn.style.display = 'inline-block';
                 }
             } else if (data.analysis_result && data.analysis_result.error) {
-                modalBody.innerHTML = `
+                analysisContent = `
                     <div class="analysis-error">
                         <i class="fas fa-exclamation-triangle me-2"></i>
                         <strong>Error en el análisis DevOps</strong>
@@ -1663,7 +1847,7 @@
                     </div>
                 `;
             } else {
-                modalBody.innerHTML = `
+                analysisContent = `
                     <div class="analysis-error">
                         <i class="fas fa-question-circle me-2"></i>
                         <strong>Resultado inesperado</strong>
@@ -1677,6 +1861,64 @@
                 `;
             }
 
+            // Agregar mensaje de despedida ReadyMind
+            const farewellMessage = `
+                <div class="farewell-section">
+                    <div class="farewell-card">
+                        <div class="farewell-header">
+                            <div class="readymind-logo-small">
+                                <div class="logo-icon-small">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="logo-text-small">
+                                    <span class="logo-brand">Ready<span class="logo-highlight">Mind</span></span>
+                                    <small class="logo-tagline-small">Transformando Organizaciones</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="farewell-content">
+                            <h4 class="farewell-title">
+                                <i class="fas fa-heart text-danger me-2"></i>
+                                ¡Gracias por confiar en ReadyMind!
+                            </h4>
+                            
+                            <p class="farewell-text">
+                                Su Assessment DevOps ha sido procesado exitosamente. Nuestro equipo de expertos 
+                                analizará sus respuestas y se pondrá en contacto con usted pronto con 
+                                recomendaciones personalizadas para impulsar la transformación digital de su organización.
+                            </p>
+                            
+                            <div class="next-steps">
+                                <h6><i class="fas fa-rocket me-2"></i>Próximos Pasos:</h6>
+                                <ul class="steps-list">
+                                    <li><i class="fas fa-check-circle"></i> Análisis detallado por nuestros especialistas</li>
+                                    <li><i class="fas fa-check-circle"></i> Identificación de oportunidades de mejora</li>
+                                    <li><i class="fas fa-check-circle"></i> Recomendaciones específicas para Azure DevOps</li>
+                                    <li><i class="fas fa-check-circle"></i> Propuesta de roadmap de implementación</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="contact-info">
+                                <p class="contact-text">
+                                    <i class="fas fa-phone me-2"></i>
+                                    Nos comunicaremos con usted en las próximas <strong>24-48 horas</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="window-close-notice">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Aviso:</strong> Al cerrar este modal, la ventana del cuestionario se cerrará automáticamente.
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modalBody.innerHTML = analysisContent + farewellMessage;
+
             // Mostrar el modal
             modal.classList.add('show');
             modal.style.display = 'flex';
@@ -1687,15 +1929,179 @@
             updateProgress();
         }
 
-        // Cerrar modal
-        function closeAnalysisModal() {
+        // Cerrar modal con despedida y cerrar ventana
+        function closeModalWithFarewell() {
             const modal = document.getElementById('analysisResultModal');
             modal.classList.remove('show');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
             
-            // Mostrar mensaje de agradecimiento y limpiar formulario
-            showThankYouMessage();
+            // Mostrar mensaje de confirmación de cierre
+            const confirmClose = confirm(
+                '¡Gracias por completar el Assessment DevOps!\n\n' +
+                'ReadyMind se pondrá en contacto con usted pronto.\n\n' +
+                '¿Desea cerrar esta ventana?'
+            );
+            
+            if (confirmClose) {
+                // Intentar cerrar la ventana
+                try {
+                    // Para ventanas abiertas con window.open()
+                    if (window.opener) {
+                        window.close();
+                    } else {
+                        // Para pestañas normales, mostrar mensaje de despedida
+                        showFinalFarewellPage();
+                    }
+                } catch (e) {
+                    // Fallback: mostrar página de despedida
+                    showFinalFarewellPage();
+                }
+            }
+        }
+
+        // Mostrar página final de despedida
+        function showFinalFarewellPage() {
+            document.body.innerHTML = `
+                <div class="final-farewell-page">
+                    <div class="container">
+                        <div class="farewell-container">
+                            <div class="readymind-logo-large">
+                                <div class="logo-icon-large">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="logo-text-large">
+                                    <h1>Ready<span class="logo-highlight">Mind</span></h1>
+                                    <p class="logo-tagline-large">Transformando Organizaciones</p>
+                                </div>
+                            </div>
+                            
+                            <div class="farewell-message">
+                                <div class="success-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                
+                                <h2>¡Assessment DevOps Completado Exitosamente!</h2>
+                                
+                                <p class="main-message">
+                                    Gracias por confiar en ReadyMind para evaluar la madurez DevOps de su organización. 
+                                    Su información ha sido procesada y nuestros especialistas la están analizando.
+                                </p>
+                                
+                                <div class="contact-timeline">
+                                    <h3><i class="fas fa-clock me-2"></i>Próximos Pasos</h3>
+                                    <p>
+                                        Nos pondremos en contacto con usted en las próximas <strong>24-48 horas</strong> 
+                                        con un análisis detallado y recomendaciones personalizadas para su organización.
+                                    </p>
+                                </div>
+                                
+                                <div class="close-instruction">
+                                    <p><i class="fas fa-info-circle me-2"></i>
+                                        Ya puede cerrar esta ventana de manera segura.
+                                    </p>
+                                    
+                                    <button onclick="window.close()" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-times me-2"></i>Cerrar Ventana
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    .final-farewell-page {
+                        min-height: 100vh;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 2rem;
+                        color: white;
+                    }
+                    
+                    .farewell-container {
+                        text-align: center;
+                        max-width: 800px;
+                        background: rgba(255,255,255,0.1);
+                        backdrop-filter: blur(10px);
+                        border-radius: 20px;
+                        padding: 3rem;
+                        border: 1px solid rgba(255,255,255,0.2);
+                    }
+                    
+                    .readymind-logo-large {
+                        margin-bottom: 2rem;
+                    }
+                    
+                    .logo-icon-large {
+                        width: 100px;
+                        height: 100px;
+                        background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 3rem;
+                        color: white;
+                        margin: 0 auto 1rem;
+                        animation: logoFloat 3s ease-in-out infinite;
+                    }
+                    
+                    .logo-text-large h1 {
+                        font-size: 3.5rem;
+                        font-weight: 700;
+                        margin: 0;
+                        background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
+                    
+                    .success-icon {
+                        font-size: 4rem;
+                        color: #00ff88;
+                        margin-bottom: 1rem;
+                    }
+                    
+                    .farewell-message h2 {
+                        font-size: 2.5rem;
+                        margin-bottom: 1.5rem;
+                        color: white;
+                    }
+                    
+                    .main-message {
+                        font-size: 1.2rem;
+                        line-height: 1.6;
+                        margin-bottom: 2rem;
+                        opacity: 0.95;
+                    }
+                    
+                    .contact-timeline {
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 15px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                    }
+                    
+                    .close-instruction {
+                        margin-top: 2rem;
+                        padding-top: 2rem;
+                        border-top: 1px solid rgba(255,255,255,0.2);
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .farewell-container { padding: 2rem 1.5rem; }
+                        .logo-text-large h1 { font-size: 2.5rem; }
+                        .farewell-message h2 { font-size: 2rem; }
+                    }
+                </style>
+            `;
+        }
+
+        // Cerrar modal original (mantener compatibilidad)
+        function closeAnalysisModal() {
+            closeModalWithFarewell();
         }
 
         // Mostrar mensaje de agradecimiento y limpiar todo
@@ -1889,15 +2295,15 @@
         // Event listeners para el modal
         document.addEventListener('DOMContentLoaded', function() {
             // Cerrar modal con botón X
-            document.querySelector('#analysisResultModal .btn-close').addEventListener('click', closeAnalysisModal);
+            document.querySelector('#analysisResultModal .btn-close').addEventListener('click', closeModalWithFarewell);
             
             // Cerrar modal con botón "Cerrar"
-            document.querySelector('#analysisResultModal .btn-secondary').addEventListener('click', closeAnalysisModal);
+            document.querySelector('#analysisResultModal .btn-secondary').addEventListener('click', closeModalWithFarewell);
             
             // Cerrar modal clickeando fuera de él
             document.getElementById('analysisResultModal').addEventListener('click', function(e) {
                 if (e.target === this) {
-                    closeAnalysisModal();
+                    closeModalWithFarewell();
                 }
             });
             
@@ -1906,7 +2312,7 @@
                 if (e.key === 'Escape') {
                     const modal = document.getElementById('analysisResultModal');
                     if (modal.classList.contains('show')) {
-                        closeAnalysisModal();
+                        closeModalWithFarewell();
                     }
                 }
             });
