@@ -116,36 +116,65 @@ Luis Alberto Arenas - ReadyMind
 Email: luisalberto@readymind.ms
 Fecha: Noviembre 2025
 
-## Publicar en GitHub (proceso seguro)
+## Publicar en GitHub (proceso seguro con SSH)
 
-Se recomienda no incluir tokens en scripts ni en chats. Use una de estas opciones para subir el código al repositorio remoto:
+Se recomienda usar SSH para mayor seguridad y simplicidad. Configuración una sola vez, sin necesidad de tokens.
 
-1) Usar `GITHUB_TOKEN` en la sesión (recomendado para CI/local):
+### 1) Configuración inicial SSH (solo una vez):
 
-   - En WSL / Linux / macOS:
-     ```bash
-     export GITHUB_TOKEN="<your_personal_access_token>"
-     ./git-push.sh https://github.com/<owner>/formulario-devops.git
-     ```
-   - El script `git-push.sh` añadirá un remoto temporal autenticado para hacer `git push` y lo limpiará después. No se guarda el token en el repositorio.
+**Paso 1: Generar clave SSH (si no existe)**
+```bash
+ssh-keygen -t rsa -b 4096 -C "luisalberto@readymind.ms"
+# Presionar Enter para usar ubicación por defecto
+# Opcional: agregar passphrase para mayor seguridad
+```
 
-2) Usar la CLI de GitHub interactiva `gh` (recomendado para usuarios):
+**Paso 2: Agregar clave pública a GitHub**
+```bash
+cat ~/.ssh/id_rsa.pub
+# Copiar la salida completa
+```
+- Ve a: https://github.com/settings/keys
+- Click "New SSH key"
+- Pegar la clave pública
+- Título: "WSL Development Key" (o similar)
+- Click "Add SSH key"
 
-   ```bash
-   gh auth login
-   gh repo create <owner>/formulario-devops --public --source=. --remote=origin
-   git push -u origin main
-   ```
+**Paso 3: Verificar conectividad**
+```bash
+ssh -T git@github.com
+# Debe mostrar: "Hi username! You've successfully authenticated..."
+```
 
-3) Usar la interfaz web de GitHub para crear el repositorio y luego ejecutar:
+### 2) Usar el script para subir código:
 
-   ```bash
-   git remote add origin https://github.com/<owner>/formulario-devops.git
-   git push -u origin main
-   ```
+```bash
+chmod +x git-push.sh
+./git-push.sh git@github.com:luisreadymind/formulario-devops.git "commit message"
+```
 
-Importante: Nunca pegue su PAT en un chat público o en un repositorio. Mantenga las credenciales en variables de entorno o el administrador de credenciales de su sistema.
+### 3) Alternativas (métodos previos mantenidos):
+
+**Opción A: Usando `GITHUB_TOKEN` (HTTPS)**
+```bash
+export GITHUB_TOKEN="<your_personal_access_token>"
+# Cambiar script a usar HTTPS si es necesario
+```
+
+**Opción B: CLI de GitHub interactiva**
+```bash
+gh auth login
+gh repo create owner/formulario-devops --public --source=. --remote=origin
+git push -u origin main
+```
+
+### Ventajas de SSH:
+- ✅ No requiere tokens en comandos
+- ✅ Configuración una sola vez
+- ✅ Más seguro (clave local vs token en variables)
+- ✅ Funciona con todos los comandos git
+- ✅ No expira como los tokens
 
 Archivos útiles añadidos:
 
-- `git-push.sh` - Script helper para inicializar/commitar y empujar al remoto usando `GITHUB_TOKEN` opcional.
+- `git-push.sh` - Script helper para git push con SSH, incluye verificación de conectividad
