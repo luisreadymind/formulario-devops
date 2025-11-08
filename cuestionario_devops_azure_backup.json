@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "version": "1.0",
-    "idioma": "es-MX",
+    "version": "1.1-tropicalizado",
+    "idioma": "es-LATAM",
     "titulo": "Cuestionario de Madurez DevOps orientado a productos Azure",
     "duracionEstimadaMin": "50-60",
     "fuentes": [
@@ -9,19 +9,26 @@
       "Azure Well-Architected Framework (WAF)",
       "CMMI (Capability Maturity Model Integration)"
     ],
-    "fechaGeneracion": "2025-11-07"
+    "fechaGeneracion": "2025-11-07",
+    "fechaActualizacion": "2025-11-08",
+    "cambios": [
+      "Preguntas tropicalizadas a español latinoamericano",
+      "Lenguaje más claro y explicativo",
+      "Reducción de tecnicismos",
+      "Mayor claridad en las opciones de respuesta"
+    ]
   },
-  "instrucciones": "Seleccione la opción que mejor describa su situación actual. Siempre existe 'Otro (especificar)' y 'No implementado / No aplica'.",
+  "instrucciones": "Seleccione la opción que mejor describa la situación actual de su equipo u organización. Siempre puede elegir 'Otro (especificar)' para casos particulares o 'No implementado / No aplica' cuando no corresponda.",
   "areas": [
     {
       "id": "A",
       "nombre": "Planificación y Gestión Ágil (ALM)",
-      "objetivo": "Evaluar prácticas ágiles y trazabilidad con herramientas Azure/GitHub para flujo de valor.",
+      "objetivo": "Evalúa cómo su equipo planifica, organiza y gestiona el trabajo utilizando metodologías ágiles y herramientas de Azure/GitHub para optimizar el flujo de entrega de valor.",
       "preguntas": [
         {
           "id": "A1",
           "tipo": "single",
-          "texto": "¿Qué herramienta primaria utiliza para planificación, backlog y sprints?",
+          "texto": "¿Cuál es la herramienta principal que utiliza su equipo para organizar y planificar el trabajo, crear listas de tareas pendientes (backlog) y gestionar los ciclos de desarrollo (sprints)?",
           "opciones": [
             {
               "id": "A1O1",
@@ -56,28 +63,33 @@
           "campoOtro": {
             "id": "A1OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Qué herramienta primaria utiliza para planificación, backlog y sprints?"
         },
         {
           "id": "A2",
           "tipo": "single",
-          "texto": "¿Cómo prioriza y ordena su backlog de producto?",
+          "texto": "¿De qué manera su equipo decide qué tareas y características son más importantes y en qué orden deben desarrollarse en la lista de trabajo pendiente?",
           "opciones": [
             {
               "id": "A2O1",
-              "texto": "Stack rank con políticas definidas"
+              "texto": "Ordenamiento por prioridad con reglas claras y documentadas",
+              "texto_original": "Stack rank con políticas definidas"
             },
             {
               "id": "A2O2",
-              "texto": "MoSCoW/WSJF documentado"
+              "texto": "Metodología de priorización MoSCoW (Must have, Should have, Could have, Won't have) o WSJF documentada",
+              "texto_original": "MoSCoW/WSJF documentado"
             },
             {
               "id": "A2O3",
-              "texto": "Prioridad por comité ad-hoc"
+              "texto": "Priorización decidida por un grupo de personas según la situación",
+              "texto_original": "Prioridad por comité ad-hoc"
             },
             {
               "id": "A2O4",
-              "texto": "Por dependencia/urgencia sin criterio formal"
+              "texto": "Se prioriza por urgencia o dependencias sin seguir un método específico",
+              "texto_original": "Por dependencia/urgencia sin criterio formal"
             },
             {
               "id": "A2OTRO",
@@ -92,28 +104,33 @@
           "campoOtro": {
             "id": "A2OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Cómo prioriza y ordena su backlog de producto?"
         },
         {
           "id": "A3",
           "tipo": "single",
-          "texto": "¿Existe trazabilidad end-to-end Requisito→Commit→Build→Release→Incidente?",
+          "texto": "¿Pueden seguir el recorrido completo de una funcionalidad desde que se solicita hasta que se entrega, incluyendo los cambios de código, compilación, despliegue y posibles problemas?",
           "opciones": [
             {
               "id": "A3O1",
-              "texto": "Completa (automática)"
+              "texto": "Seguimiento completo y automatizado",
+              "texto_original": "Completa (automática)"
             },
             {
               "id": "A3O2",
-              "texto": "Parcial (manual+automática)"
+              "texto": "Seguimiento parcial con procesos manuales y automáticos",
+              "texto_original": "Parcial (manual+automática)"
             },
             {
               "id": "A3O3",
-              "texto": "Sólo manual"
+              "texto": "Seguimiento únicamente manual",
+              "texto_original": "Sólo manual"
             },
             {
               "id": "A3O4",
-              "texto": "Sin trazabilidad"
+              "texto": "No hay seguimiento del recorrido de las funcionalidades",
+              "texto_original": "Sin trazabilidad"
             },
             {
               "id": "A3OTRO",
@@ -128,24 +145,28 @@
           "campoOtro": {
             "id": "A3OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Existe trazabilidad end-to-end Requisito→Commit→Build→Release→Incidente?"
         },
         {
           "id": "A4",
           "tipo": "single",
-          "texto": "Cadencia de iteraciones/entregas a producción:",
+          "texto": "¿Con qué frecuencia su equipo entrega nuevas funcionalidades o actualizaciones a los usuarios finales en el ambiente de producción?",
           "opciones": [
             {
               "id": "A4O1",
-              "texto": "Diaria"
+              "texto": "Todos los días",
+              "texto_original": "Diaria"
             },
             {
               "id": "A4O2",
-              "texto": "Semanal"
+              "texto": "Una vez por semana",
+              "texto_original": "Semanal"
             },
             {
               "id": "A4O3",
-              "texto": "Quincenal"
+              "texto": "Cada dos semanas",
+              "texto_original": "Quincenal"
             },
             {
               "id": "A4O4",
@@ -164,12 +185,13 @@
           "campoOtro": {
             "id": "A4OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "Cadencia de iteraciones/entregas a producción:"
         },
         {
           "id": "A5",
           "tipo": "multi",
-          "texto": "¿Qué prácticas de refinamiento y calidad del backlog utiliza?",
+          "texto": "¿Qué técnicas utiliza su equipo para revisar, mejorar y mantener organizada la lista de trabajo pendiente (backlog) para asegurar que sea clara y útil?",
           "opciones": [
             {
               "id": "A5O1",
@@ -200,12 +222,13 @@
           "campoOtro": {
             "id": "A5OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Qué prácticas de refinamiento y calidad del backlog utiliza?"
         },
         {
           "id": "A6",
           "tipo": "single",
-          "texto": "¿Qué estándar de gestión de requerimientos utiliza?",
+          "texto": "¿Qué metodología o framework utiliza su organización para documentar, organizar y gestionar las necesidades y solicitudes de los usuarios?",
           "opciones": [
             {
               "id": "A6O1",
@@ -236,12 +259,13 @@
           "campoOtro": {
             "id": "A6OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Qué estándar de gestión de requerimientos utiliza?"
         },
         {
           "id": "A7",
           "tipo": "single",
-          "texto": "¿Cómo gestiona la dependencia entre equipos/tribus?",
+          "texto": "¿Cómo coordina su equipo el trabajo cuando necesita colaborar con otros equipos o cuando una tarea depende del trabajo de otros grupos?",
           "opciones": [
             {
               "id": "A7O1",
@@ -272,12 +296,13 @@
           "campoOtro": {
             "id": "A7OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Cómo gestiona la dependencia entre equipos/tribus?"
         },
         {
           "id": "A8",
           "tipo": "multi",
-          "texto": "¿Qué métricas de delivery revisa de forma periódica?",
+          "texto": "¿Qué indicadores o números revisa regularmente su equipo para medir qué tan bien está entregando el trabajo y cumpliendo objetivos?",
           "opciones": [
             {
               "id": "A8O1",
@@ -308,12 +333,13 @@
           "campoOtro": {
             "id": "A8OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Qué métricas de delivery revisa de forma periódica?"
         },
         {
           "id": "A9",
           "tipo": "single",
-          "texto": "¿Cómo gestiona riesgos y cambios de alcance?",
+          "texto": "¿Cómo maneja su equipo los posibles problemas que pueden surgir y los cambios en los requisitos o expectativas del proyecto?",
           "opciones": [
             {
               "id": "A9O1",
@@ -344,12 +370,13 @@
           "campoOtro": {
             "id": "A9OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Cómo gestiona riesgos y cambios de alcance?"
         },
         {
           "id": "A10",
           "tipo": "single",
-          "texto": "¿Qué herramienta de documentación viva utiliza?",
+          "texto": "¿Qué herramienta utiliza para crear y mantener actualizada la documentación del proyecto que siempre refleje el estado actual del desarrollo?",
           "opciones": [
             {
               "id": "A10O1",
@@ -380,19 +407,20 @@
           "campoOtro": {
             "id": "A10OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Qué herramienta de documentación viva utiliza?"
         }
       ]
     },
     {
       "id": "B",
       "nombre": "Código, Control de Versiones y Calidad",
-      "objetivo": "Evaluar repositorios, branching, revisiones, y calidad de código.",
+      "objetivo": "Evalúa las prácticas de desarrollo de código, control de versiones, calidad y colaboración en equipo.",
       "preguntas": [
         {
           "id": "B1",
           "tipo": "single",
-          "texto": "¿Repositorio principal?",
+          "texto": "¿En qué plataforma principal almacena y gestiona su equipo el código fuente del proyecto?",
           "opciones": [
             {
               "id": "B1O1",
@@ -423,12 +451,13 @@
           "campoOtro": {
             "id": "B1OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Repositorio principal?"
         },
         {
           "id": "B2",
           "tipo": "single",
-          "texto": "Estrategia de ramas (branching) predominante:",
+          "texto": "¿Dónde guarda su equipo los archivos compilados, librerías y componentes reutilizables que genera durante el desarrollo?",
           "opciones": [
             {
               "id": "B2O1",
@@ -459,12 +488,13 @@
           "campoOtro": {
             "id": "B2OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Dónde se almacenan artefactos y paquetes?"
         },
         {
           "id": "B3",
           "tipo": "multi",
-          "texto": "Políticas en PR/merge:",
+          "texto": "¿Qué elementos de su proyecto tienen control de versiones para rastrear cambios y mantener un historial de modificaciones?",
           "opciones": [
             {
               "id": "B3O1",
@@ -495,12 +525,13 @@
           "campoOtro": {
             "id": "B3OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Qué se versiona?"
         },
         {
           "id": "B4",
           "tipo": "multi",
-          "texto": "Calidad de código automatizada:",
+          "texto": "¿Utiliza su equipo herramientas de inteligencia artificial para ayudar a escribir código de manera más segura y eficiente?",
           "opciones": [
             {
               "id": "B4O1",
@@ -531,12 +562,13 @@
           "campoOtro": {
             "id": "B4OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Uso de IA para desarrollo seguro/productivo?"
         },
         {
           "id": "B5",
           "tipo": "single",
-          "texto": "Convenciones/estilo de código:",
+          "texto": "¿Todos los cambios importantes en el código son revisados por otros desarrolladores antes de ser incluidos en el proyecto principal?",
           "opciones": [
             {
               "id": "B5O1",
@@ -567,12 +599,13 @@
           "campoOtro": {
             "id": "B5OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Evidencia de revisión entre pares (peer review) 100% de cambios críticos?"
         },
         {
           "id": "B6",
           "tipo": "single",
-          "texto": "¿Dónde se almacenan artefactos y paquetes?",
+          "texto": "¿Cómo gestiona su equipo las librerías externas que utiliza el proyecto y mantiene un inventario de todos los componentes de software?",
           "opciones": [
             {
               "id": "B6O1",
@@ -603,7 +636,8 @@
           "campoOtro": {
             "id": "B6OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Gestión de dependencias y SBOM?"
         },
         {
           "id": "B7",
@@ -754,12 +788,12 @@
     {
       "id": "C",
       "nombre": "CI/CD y Gestión de Releases",
-      "objetivo": "Evaluar pipelines, estrategias de despliegue y control de cambios.",
+      "objetivo": "Evalúa el nivel de automatización en los procesos de integración continua, despliegue continuo y gestión de infraestructura.",
       "preguntas": [
         {
           "id": "C1",
           "tipo": "single",
-          "texto": "¿Orquestador CI/CD primario?",
+          "texto": "¿Cuál es la herramienta principal que utiliza su equipo para automatizar la compilación, pruebas y despliegue de código?",
           "opciones": [
             {
               "id": "C1O1",
@@ -790,12 +824,13 @@
           "campoOtro": {
             "id": "C1OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Orquestador CI/CD primario?"
         },
         {
           "id": "C2",
           "tipo": "multi",
-          "texto": "Tipos de ejecución y agentes:",
+          "texto": "¿Qué herramientas utiliza su equipo para definir y gestionar la infraestructura de servidores y servicios mediante código?",
           "opciones": [
             {
               "id": "C2O1",
@@ -826,12 +861,13 @@
           "campoOtro": {
             "id": "C2OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Lenguajes/herramientas IaC utilizados?"
         },
         {
           "id": "C3",
           "tipo": "multi",
-          "texto": "Estrategias de despliegue:",
+          "texto": "¿Qué políticas y controles tiene implementados su organización para asegurar el cumplimiento de estándares y buenas prácticas?",
           "opciones": [
             {
               "id": "C3O1",
@@ -862,12 +898,13 @@
           "campoOtro": {
             "id": "C3OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Controles de plataforma y gobierno?"
         },
         {
           "id": "C4",
           "tipo": "multi",
-          "texto": "Controles de liberación:",
+          "texto": "¿Cómo protege y gestiona su equipo las contraseñas, claves API y otra información sensible utilizada por las aplicaciones?",
           "opciones": [
             {
               "id": "C4O1",
@@ -898,12 +935,13 @@
           "campoOtro": {
             "id": "C4OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Gestión de secretos?"
         },
         {
           "id": "C5",
           "tipo": "multi",
-          "texto": "Targets de despliegue predominantes:",
+          "texto": "¿Cómo maneja su equipo las configuraciones específicas para cada ambiente (desarrollo, pruebas, producción) de las aplicaciones?",
           "opciones": [
             {
               "id": "C5O1",
@@ -934,12 +972,13 @@
           "campoOtro": {
             "id": "C5OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Gestión de configuración de apps?"
         },
         {
           "id": "C6",
           "tipo": "multi",
-          "texto": "Gestión de secretos en pipeline:",
+          "texto": "¿Cómo está organizada y conectada la infraestructura de red donde funcionan sus aplicaciones y servicios?",
           "opciones": [
             {
               "id": "C6O1",
@@ -970,7 +1009,8 @@
           "campoOtro": {
             "id": "C6OTRO_TEXTO",
             "placeholder": "Especifique"
-          }
+          },
+          "texto_original": "¿Topologías y redes?"
         },
         {
           "id": "C7",
@@ -1019,11 +1059,13 @@
             },
             {
               "id": "C8O2",
-              "texto": "Semanal"
+              "texto": "Una vez por semana",
+              "texto_original": "Semanal"
             },
             {
               "id": "C8O3",
-              "texto": "Quincenal"
+              "texto": "Cada dos semanas",
+              "texto_original": "Quincenal"
             },
             {
               "id": "C8O4",
@@ -1121,7 +1163,7 @@
     {
       "id": "D",
       "nombre": "Infraestructura como Código y Configuración",
-      "objetivo": "Evaluar práctica de IaC, landing zones y gestión de configuración segura.",
+      "objetivo": "Evalúa las prácticas de gestión de infraestructura como código y arquitectura en la nube.",
       "preguntas": [
         {
           "id": "D1",
@@ -1488,7 +1530,7 @@
     {
       "id": "E",
       "nombre": "Seguridad y Cumplimiento",
-      "objetivo": "Evaluar prácticas de secure-by-design, postura en Azure y cumplimiento.",
+      "objetivo": "Evalúa las medidas de seguridad implementadas en todo el ciclo de desarrollo y despliegue.",
       "preguntas": [
         {
           "id": "E1",
@@ -1855,7 +1897,7 @@
     {
       "id": "F",
       "nombre": "Observabilidad, Monitoreo y Operación",
-      "objetivo": "Evaluar telemetría, SRE/operación y mejora continua.",
+      "objetivo": "Evalúa las capacidades de monitoreo, observabilidad y respuesta a incidentes en producción.",
       "preguntas": [
         {
           "id": "F1",
