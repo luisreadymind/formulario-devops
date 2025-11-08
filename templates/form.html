@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ questionnaire.metadata.titulo }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bundle.min.css') }}">
+    <style>
+    <style>
+        /* Estilos adicionales personalizados */
+        .otro-field {
+            margin-top: 1rem;
+            display: none !important;
+        }
+
+        .otro-field.show {
+            display: block !important;
+            animation: fadeInDown 0.3s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .char-counter {
+            font-size: 0.875rem;
+            color: var(--rm-secondary);
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+
+        .char-counter.warning {
+            color: var(--rm-warning);
+            font-weight: 600;
+        }
+
+        .char-counter.error {
+            color: var(--rm-error);
+            font-weight: 600;
+        }
+
+        .progress-indicator {
+            position: sticky;
+
+        /* Estilos para el mensaje de agradecimiento */
+        .thank-you-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .thank-you-container .fas {
+            transition: transform 0.3s ease;
+        }
+        
+        .thank-you-container .fa-check-circle:hover {
+            transform: scale(1.1);
+        }
+        
+        .thank-you-container h1 {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .thank-you-container > div:nth-child(3) {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .thank-you-container > div:last-child {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+            top: 0;
+            z-index: 1000;
+            background: var(--rm-bg);
+            padding: 1rem 0;
+            box-shadow: var(--rm-shadow);
+            border-bottom: 1px solid var(--rm-border);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-text {
+            font-weight: 600;
+            color: var(--rm-text);
+            font-size: 1rem;
+        }
+
+        .progress-stats {
+            font-size: 0.875rem;
+            color: var(--rm-secondary);
+            font-weight: 500;
+        }
+
+        .progress-percentage {
+            font-weight: 700;
+            color: var(--rm-primary);
+        }
+
+        .form-check-option {
+            background: var(--rm-bg);
+            border: 2px solid var(--rm-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-check-option:hover {
+            border-color: var(--rm-primary);
+            background: rgba(30, 64, 175, 0.05);
+        }
+
+        .form-check-option.selected {
+            border-color: var(--rm-primary);
+            background: rgba(30, 64, 175, 0.1);
+        }
+
+        .form-check-option input {
+            margin-right: 0.75rem;
+        }
+
+        .form-check-option label {
+            cursor: pointer;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--rm-shadow);
+        }
+
+        .spinner {
+            border: 4px solid var(--rm-border);
+            border-top: 4px solid var(--rm-primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-border {
+            border-color: var(--rm-error) !important;
+        }
+
+        .success-border {
+            border-color: var(--rm-success) !important;
+        }
+
+        @media (max-width: 768px) {
+            .progress-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .progress-text {
+                font-size: 0.9rem;
+            }
+            
+            .progress-stats {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Estilos del Modal de Análisis */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-dialog {
+            max-width: 800px;
+            width: 90%;
+            margin: 1rem;
+        }
+
+        .modal-content {
+            background: var(--rm-bg);
+            border-radius: 12px;
+            box-shadow: var(--rm-shadow-lg);
+            border: 1px solid var(--rm-border);
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--rm-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            color: var(--rm-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--rm-secondary);
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-close:hover {
+            background-color: var(--rm-error-light);
+            color: var(--rm-error);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--rm-border);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .analysis-success {
+            color: var(--rm-success);
+            margin-bottom: 1rem;
+        }
+
+        .analysis-error {
+            color: var(--rm-error);
+            margin-bottom: 1rem;
+        }
+
+        .analysis-details {
+            background: var(--rm-bg-light);
+            border: 1px solid var(--rm-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .analysis-details h6 {
+            color: var(--rm-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .analysis-details p {
+            margin: 0.5rem 0;
+            color: var(--rm-text);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-dialog {
+                width: 95%;
+                margin: 0.5rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+                margin: 0.25rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="readymind-header">
+        <div class="container">
+            <h1>{{ questionnaire.metadata.titulo }}</h1>
+            <p>Duración estimada: {{ questionnaire.metadata.duracionEstimadaMin }} minutos</p>
+        </div>
+    </div>
+
+    <!-- Indicador de Progreso -->
+    <div class="progress-indicator">
+        <div class="container">
+            <div class="progress-info">
+                <span class="progress-text">Progreso del Cuestionario</span>
+                <span class="progress-stats">
+                    <span id="answered-count">0</span> de <span id="total-count">0</span> preguntas respondidas 
+                    (<span class="progress-percentage" id="progress-percentage">0%</span>)
+                </span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="readymind-form">
+            <form id="devopsForm" action="/submit" method="POST">
+                <!-- Información del Cliente -->
+                <div class="section-header">
+                    <h3 class="section-title">Información del Cliente</h3>
+                    <p class="section-description">Proporcione sus datos de contacto para recibir el reporte personalizado</p>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="client_name" class="form-label">Nombre/Organización <span class="text-danger">*</span></label>
+                        <input type="text" id="client_name" name="client_name" class="form-control" required>
+                        <div class="alert alert-danger" id="client_name_error" style="display: none; margin-top: 0.5rem; padding: 0.5rem;">
+                            Este campo es requerido
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="client_email" class="form-label">Email de Contacto <span class="text-danger">*</span></label>
+                        <input type="email" id="client_email" name="client_email" class="form-control" required>
+                        <div class="alert alert-danger" id="client_email_error" style="display: none; margin-top: 0.5rem; padding: 0.5rem;">
+                            Ingrese un email válido
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <label for="client_company" class="form-label">Empresa/Organización</label>
+                        <input type="text" id="client_company" name="client_company" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Áreas del Cuestionario -->
+                {% for area in questionnaire.areas %}
+                <div class="card mb-4" data-area="{{ area.id }}">
+                    <div class="card-header">
+                        <h2 class="section-title mb-2">{{ area.id }}. {{ area.nombre }}</h2>
+                        <p class="section-description mb-0">
+                            <strong>Objetivo:</strong> {{ area.objetivo }}
+                        </p>
+                    </div>
+                    
+                    <div class="card-body">
+                        {% for question in area.preguntas %}
+                        <div class="question-group" data-question="{{ question.id }}">
+                            <div class="question-title">{{ question.texto }}</div>
+                            
+                            {% if question.tipo == 'single' %}
+                                {% for option in question.opciones %}
+                                    <div class="form-check-option" onclick="selectRadio('{{ question.id }}', '{{ option.id }}', this)">
+                                        <input type="radio" name="{{ question.id }}" value="{{ option.id }}" 
+                                               id="{{ question.id }}_{{ option.id }}" class="form-check-input">
+                                        <label for="{{ question.id }}_{{ option.id }}" class="form-check-label">
+                                            {{ option.texto }}
+                                        </label>
+                                    </div>
+                                    
+                                    {% if option.otroCampoId %}
+                                    <div class="otro-field" id="{{ option.otroCampoId }}_container">
+                                        <input type="text" name="{{ option.otroCampoId }}" class="form-control" 
+                                               placeholder="{{ question.campoOtro.placeholder if question.campoOtro else 'Especifique...' }}"
+                                               maxlength="150" oninput="updateCharCounter(this)">
+                                        <div class="char-counter" id="{{ option.otroCampoId }}_counter">0/150 caracteres</div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            
+                            {% elif question.tipo == 'multi' %}
+                                {% for option in question.opciones %}
+                                    <div class="form-check-option" onclick="toggleCheckbox('{{ question.id }}', '{{ option.id }}', this)">
+                                        <input type="checkbox" name="{{ question.id }}" value="{{ option.id }}" 
+                                               id="{{ question.id }}_{{ option.id }}" class="form-check-input">
+                                        <label for="{{ question.id }}_{{ option.id }}" class="form-check-label">
+                                            {{ option.texto }}
+                                        </label>
+                                    </div>
+                                    
+                                    {% if option.otroCampoId %}
+                                    <div class="otro-field" id="{{ option.otroCampoId }}_container">
+                                        <input type="text" name="{{ option.otroCampoId }}" class="form-control" 
+                                               placeholder="{{ question.campoOtro.placeholder if question.campoOtro else 'Especifique...' }}"
+                                               maxlength="150" oninput="updateCharCounter(this)">
+                                        <div class="char-counter" id="{{ option.otroCampoId }}_counter">0/150 caracteres</div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Sección de Envío -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="section-title">Finalizar Evaluación</h3>
+                        <p class="section-description">Una vez enviado el formulario, recibirá un reporte completo en PDF con sus resultados.</p>
+                    </div>
+                    
+                    <div class="card-body text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                            <i class="fas fa-file-pdf me-2"></i>
+                            Generar Reporte DevOps
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h4 class="text-primary">Generando Reporte...</h4>
+            <p class="text-secondary">Esto puede tomar algunos minutos. No cierre esta ventana.</p>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar resultados de análisis DevOps -->
+    <div class="modal" id="analysisResultModal" tabindex="-1" role="dialog" aria-labelledby="analysisModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="analysisModalTitle">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Análisis DevOps Completado
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="analysisModalBody">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                        <p class="mt-3">Procesando resultados...</p>
+                    </div>
+                </div>
+                <div class="modal-footer" id="analysisModalFooter">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="#" id="downloadReportBtn" class="btn btn-primary" style="display: none;">
+                        <i class="fas fa-download me-2"></i>Descargar PDF Original
+                    </a>
+                    <a href="#" id="viewAnalysisReportBtn" class="btn btn-success" target="_blank" style="display: none;">
+                        <i class="fas fa-external-link-alt me-2"></i>Ver Reporte de Análisis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Container -->
+    <div class="container">
+        <div id="alertContainer"></div>
+    </div>
+
+    <script>
+        // Variables globales
+        let totalQuestions = 0;
+        let answeredQuestions = 0;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeForm();
+        });
+
+        function initializeForm() {
+            totalQuestions = document.querySelectorAll('.question-group').length;
+            document.getElementById('total-count').textContent = totalQuestions;
+            updateProgress();
+            setupFormValidation();
+            setupCharCounters();
+        }
+
+        // Selección de radio buttons
+        function selectRadio(questionId, value, element) {
+            const radio = element.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                
+                // Remover selección anterior en el grupo
+                const questionGroup = element.closest('.question-group');
+                questionGroup.querySelectorAll('.form-check-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                // Agregar selección actual
+                element.classList.add('selected');
+                
+                // Manejar campo "Otro"
+                handleOtherField(questionId, value, element, 'radio');
+                
+                updateProgress();
+            }
+        }
+
+        // Toggle de checkboxes
+        function toggleCheckbox(questionId, value, element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                
+                if (checkbox.checked) {
+                    element.classList.add('selected');
+                } else {
+                    element.classList.remove('selected');
+                }
+                
+                // Manejar campo "Otro"
+                handleOtherField(questionId, value, element, 'checkbox');
+                
+                updateProgress();
+            }
+        }
+
+        // Manejar campos "Otro"
+        function handleOtherField(questionId, value, element, inputType) {
+            console.log('handleOtherField called:', {questionId, value, inputType});
+            
+            if (!value || value.trim() === '') {
+                console.error('Value is empty or undefined!', value);
+                return;
+            }
+            
+            const containerId = value + '_TEXTO_container';
+            console.log('Looking for container with ID:', containerId);
+            const otherContainer = document.getElementById(containerId);
+            console.log('otherContainer found:', otherContainer);
+            
+            if (otherContainer) {
+                const input = element.querySelector('input');
+                console.log('Input checked:', input?.checked);
+                
+                if (input && input.checked) {
+                    // Mostrar campo "Otro"
+                    otherContainer.classList.add('show');
+                    console.log('Added show class to:', otherContainer);
+                    setTimeout(() => {
+                        const textInput = otherContainer.querySelector('input[type="text"]');
+                        if (textInput) {
+                            textInput.focus();
+                            console.log('Focused text input');
+                        }
+                    }, 300);
+                } else if (inputType === 'radio') {
+                    // Para radio buttons, ocultar todos los campos "otro" del grupo
+                    const questionGroup = element.closest('.question-group');
+                    questionGroup.querySelectorAll('.otro-field').forEach(field => {
+                        field.classList.remove('show');
+                        const textInput = field.querySelector('input[type="text"]');
+                        if (textInput) {
+                            textInput.value = '';
+                            updateCharCounter(textInput);
+                        }
+                    });
+                    // Mostrar solo el actual si está seleccionado
+                    if (input && input.checked) {
+                        otherContainer.classList.add('show');
+                    }
+                } else if (inputType === 'checkbox') {
+                    // Para checkboxes, solo ocultar el actual si se desmarca
+                    otherContainer.classList.remove('show');
+                    const textInput = otherContainer.querySelector('input[type="text"]');
+                    if (textInput) {
+                        textInput.value = '';
+                        updateCharCounter(textInput);
+                    }
+                }
+            } else {
+                console.warn('No container found for ID:', containerId);
+                // Debug: listar todos los containers que SÍ existen
+                const allContainers = document.querySelectorAll('[id$="_container"]');
+                console.log('Available containers:', Array.from(allContainers).map(c => c.id));
+            }
+        }
+
+        // Actualizar contador de caracteres
+        function updateCharCounter(input) {
+            const maxLength = parseInt(input.getAttribute('maxlength')) || 150;
+            const currentLength = input.value.length;
+            const counterId = input.getAttribute('name') + '_counter';
+            const counter = document.getElementById(counterId);
+            
+            if (counter) {
+                counter.textContent = `${currentLength}/${maxLength} caracteres`;
+                
+                // Cambiar color según proximidad al límite
+                counter.classList.remove('warning', 'error');
+                if (currentLength > maxLength * 0.9) {
+                    counter.classList.add('error');
+                } else if (currentLength > maxLength * 0.7) {
+                    counter.classList.add('warning');
+                }
+            }
+        }
+
+        // Configurar contadores de caracteres
+        function setupCharCounters() {
+            document.querySelectorAll('.otro-field input[type="text"]').forEach(input => {
+                updateCharCounter(input);
+            });
+        }
+
+        // Actualizar barra de progreso
+        function updateProgress() {
+            answeredQuestions = 0;
+            
+            document.querySelectorAll('.question-group').forEach(questionGroup => {
+                const hasRadioSelected = questionGroup.querySelector('input[type="radio"]:checked');
+                const hasCheckboxSelected = questionGroup.querySelector('input[type="checkbox"]:checked');
+                
+                if (hasRadioSelected || hasCheckboxSelected) {
+                    answeredQuestions++;
+                }
+            });
+            
+            const progress = totalQuestions > 0 ? (answeredQuestions / totalQuestions) * 100 : 0;
+            
+            // Actualizar elementos del DOM
+            document.getElementById('answered-count').textContent = answeredQuestions;
+            document.getElementById('progress-percentage').textContent = Math.round(progress) + '%';
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Configurar validación del formulario
+        function setupFormValidation() {
+            const form = document.getElementById('devopsForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validar campos requeridos
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Mostrar loading overlay
+                showLoadingOverlay();
+                
+                // Enviar formulario
+                submitForm();
+            });
+
+            // Validación en tiempo real
+            document.getElementById('client_name').addEventListener('blur', function() {
+                validateClientName(this);
+            });
+            
+            document.getElementById('client_email').addEventListener('blur', function() {
+                validateClientEmail(this);
+            });
+        }
+
+        // Validar formulario completo
+        function validateForm() {
+            let isValid = true;
+            
+            // Validar nombre
+            isValid = validateClientName(document.getElementById('client_name')) && isValid;
+            
+            // Validar email
+            isValid = validateClientEmail(document.getElementById('client_email')) && isValid;
+            
+            return isValid;
+        }
+
+        // Validar nombre del cliente
+        function validateClientName(input) {
+            const error = document.getElementById('client_name_error');
+            
+            if (!input.value.trim()) {
+                showFieldError(input, error, 'Este campo es requerido');
+                return false;
+            } else {
+                hideFieldError(input, error);
+                return true;
+            }
+        }
+
+        // Validar email del cliente
+        function validateClientEmail(input) {
+            const error = document.getElementById('client_email_error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!input.value.trim()) {
+                showFieldError(input, error, 'Este campo es requerido');
+                return false;
+            } else if (!emailRegex.test(input.value)) {
+                showFieldError(input, error, 'Ingrese un email válido');
+                return false;
+            } else {
+                hideFieldError(input, error);
+                return true;
+            }
+        }
+
+        // Mostrar error en campo
+        function showFieldError(input, errorElement, message) {
+            input.classList.add('error-border');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        // Ocultar error en campo
+        function hideFieldError(input, errorElement) {
+            input.classList.remove('error-border');
+            input.classList.add('success-border');
+            errorElement.style.display = 'none';
+        }
+
+        // Mostrar overlay de carga
+        function showLoadingOverlay() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Ocultar overlay de carga
+        function hideLoadingOverlay() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Enviar formulario
+        function submitForm() {
+            const form = document.getElementById('devopsForm');
+            const formData = new FormData(form);
+            
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    hideLoadingOverlay();
+                    showAnalysisResultModal(data);
+                } else {
+                    hideLoadingOverlay();
+                    showAlert('error', data.error || 'Error procesando el formulario');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                hideLoadingOverlay();
+                showAlert('error', 'Error de conexión. Intente nuevamente.');
+            });
+        }
+
+        // Mostrar modal con resultados del análisis
+        function showAnalysisResultModal(data) {
+            const modal = document.getElementById('analysisResultModal');
+            const modalBody = document.getElementById('analysisModalBody');
+            const downloadBtn = document.getElementById('downloadReportBtn');
+            const analysisBtn = document.getElementById('viewAnalysisReportBtn');
+
+            // Configurar botón de descarga del PDF original
+            if (data.pdf_filename) {
+                downloadBtn.href = `/download/${data.pdf_filename}`;
+                downloadBtn.style.display = 'inline-block';
+            }
+
+            // Procesar resultado de la API
+            if (data.analysis_result && data.analysis_result.success) {
+                const apiData = data.analysis_result.data;
+                
+                modalBody.innerHTML = `
+                    <div class="analysis-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>¡Análisis DevOps completado exitosamente!</strong>
+                    </div>
+                    
+                    <div class="analysis-details">
+                        <h6><i class="fas fa-file-alt me-2"></i>Detalles del Análisis</h6>
+                        <p><strong>Cliente:</strong> ${apiData.client || apiData.clientName || 'No especificado'}</p>
+                        <p><strong>Fecha:</strong> ${apiData.generatedAt ? new Date(apiData.generatedAt).toLocaleDateString() : (apiData.assessmentDate || new Date().toLocaleDateString())}</p>
+                        
+                        ${apiData.analysis ? `
+                            <div class="mt-3">
+                                <h6><i class="fas fa-chart-line me-2"></i>Resultados del Análisis</h6>
+                                <p><strong>Nivel de Madurez:</strong> ${apiData.analysis.overallMaturity}</p>
+                                <p><strong>Puntuación:</strong> ${apiData.analysis.maturityScore}/100</p>
+                                
+                                ${apiData.analysis.strengths && apiData.analysis.strengths.length > 0 ? `
+                                    <p><strong>Fortalezas:</strong> ${apiData.analysis.strengths.join(', ')}</p>
+                                ` : ''}
+                                
+                                ${apiData.analysis.criticalAreas && apiData.analysis.criticalAreas.length > 0 ? `
+                                    <p><strong>Áreas Críticas:</strong> ${apiData.analysis.criticalAreas.join(', ')}</p>
+                                ` : ''}
+                                
+                                ${apiData.analysis.recommendations && apiData.analysis.recommendations.length > 0 ? `
+                                    <div class="mt-2">
+                                        <strong>Recomendaciones:</strong>
+                                        <ul class="mb-2">
+                                            ${apiData.analysis.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+                        
+                        ${apiData.areasFuertes ? `<p><strong>Áreas Fuertes:</strong> ${apiData.areasFuertes.join(', ')}</p>` : ''}
+                        ${apiData.areasDebiles ? `<p><strong>Áreas de Mejora:</strong> ${apiData.areasDebiles.join(', ')}</p>` : ''}
+                        ${apiData.puntuacionGeneral ? `<p><strong>Puntuación General:</strong> ${apiData.puntuacionGeneral}/100</p>` : ''}
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        ${apiData.status || 'El reporte detallado de análisis está disponible para visualización y descarga.'}
+                    </div>
+                `;
+
+                // Configurar botón del reporte de análisis
+                if (apiData.reportUrl) {
+                    analysisBtn.href = apiData.reportUrl;
+                    analysisBtn.style.display = 'inline-block';
+                }
+            } else if (data.analysis_result && data.analysis_result.error) {
+                modalBody.innerHTML = `
+                    <div class="analysis-error">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Error en el análisis DevOps</strong>
+                    </div>
+                    
+                    <div class="analysis-details">
+                        <h6><i class="fas fa-bug me-2"></i>Detalles del Error</h6>
+                        <p>${data.analysis_result.error}</p>
+                        ${data.analysis_result.details ? `<p><small>${data.analysis_result.details}</small></p>` : ''}
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        El PDF se generó correctamente, pero no se pudo procesar el análisis automático.
+                        Puede descargar el reporte original usando el botón de abajo.
+                    </div>
+                `;
+            } else {
+                modalBody.innerHTML = `
+                    <div class="analysis-error">
+                        <i class="fas fa-question-circle me-2"></i>
+                        <strong>Resultado inesperado</strong>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        El formulario se procesó, pero no se recibió información del análisis.
+                        Puede descargar el reporte original.
+                    </div>
+                `;
+            }
+
+            // Mostrar el modal
+            modal.classList.add('show');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // Resetear formulario
+            document.getElementById('devopsForm').reset();
+            updateProgress();
+        }
+
+        // Cerrar modal
+        function closeAnalysisModal() {
+            const modal = document.getElementById('analysisResultModal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Mostrar mensaje de agradecimiento y limpiar formulario
+            showThankYouMessage();
+        }
+
+        // Mostrar mensaje de agradecimiento y limpiar todo
+        function showThankYouMessage() {
+            // Limpiar localStorage
+            localStorage.removeItem('devopsFormProgress');
+            
+            // Obtener el contenedor principal del formulario
+            const mainContainer = document.querySelector('.rm-container');
+            
+            // Crear mensaje de agradecimiento
+            const thankYouHTML = `
+                <div class="thank-you-container" style="text-align: center; padding: 3rem 2rem; max-width: 800px; margin: 0 auto;">
+                    <div class="thank-you-icon" style="font-size: 4rem; color: #0078d4; margin-bottom: 2rem;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    
+                    <h1 style="color: #0078d4; margin-bottom: 1.5rem; font-size: 2.5rem; font-weight: 300;">
+                        ¡Gracias por su tiempo!
+                    </h1>
+                    
+                    <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 2.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                        <h2 style="color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 400;">
+                            Assessment DevOps Completado
+                        </h2>
+                        
+                        <p style="color: #34495e; font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                            Agradecemos sinceramente el tiempo que ha dedicado a completar nuestro assessment de madurez DevOps. 
+                            Su información es muy valiosa para nosotros.
+                        </p>
+                        
+                        <div style="background: white; padding: 2rem; border-radius: 10px; border-left: 5px solid #0078d4; margin: 1.5rem 0;">
+                            <h3 style="color: #0078d4; margin-bottom: 1rem; font-size: 1.4rem;">
+                                <i class="fas fa-users" style="margin-right: 0.5rem;"></i>
+                                Nuestro Equipo en Acción
+                            </h3>
+                            <p style="color: #2c3e50; margin-bottom: 1rem; font-size: 1.1rem;">
+                                El equipo de profesionales de <strong>ReadyMind</strong> se encuentra actualmente 
+                                revisando sus respuestas y trabajando en el diseño de una estrategia personalizada 
+                                que mejor se adapte a sus necesidades específicas.
+                            </p>
+                            
+                            <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+                                <h4 style="color: #0078d4; margin-bottom: 0.8rem; font-size: 1.2rem;">
+                                    <i class="fas fa-clock" style="margin-right: 0.5rem;"></i>
+                                    Próximos Pasos
+                                </h4>
+                                <ul style="color: #2c3e50; margin: 0; padding-left: 1.5rem; font-size: 1rem;">
+                                    <li style="margin-bottom: 0.5rem;">Análisis detallado de sus respuestas</li>
+                                    <li style="margin-bottom: 0.5rem;">Identificación de oportunidades de mejora</li>
+                                    <li style="margin-bottom: 0.5rem;">Diseño de estrategia personalizada</li>
+                                    <li>Preparación de recomendaciones específicas</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem;">
+                            <p style="color: #7f8c8d; font-size: 1rem; font-style: italic;">
+                                Nos pondremos en contacto con usted pronto con los resultados del análisis 
+                                y las recomendaciones personalizadas para su organización.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <div style="display: inline-block; background: #0078d4; color: white; padding: 1rem 2rem; border-radius: 50px; font-weight: 500; box-shadow: 0 4px 15px rgba(0,120,212,0.3);">
+                            <i class="fas fa-heart" style="margin-right: 0.5rem; color: #ff6b6b;"></i>
+                            ReadyMind - Transformando organizaciones
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Reemplazar todo el contenido del container principal
+            mainContainer.innerHTML = thankYouHTML;
+            
+            // Scroll suave hacia arriba
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Agregar confetti effect (opcional)
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // Mostrar alertas
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+            const iconClass = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            
+            alertContainer.innerHTML = `
+                <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                    <i class="${iconClass} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            // Auto-ocultar después de 8 segundos para mensajes de éxito
+            if (type === 'success') {
+                setTimeout(() => {
+                    const alert = alertContainer.querySelector('.alert');
+                    if (alert) {
+                        alert.remove();
+                    }
+                }, 8000);
+            }
+            
+            // Scroll hacia la alerta
+            alertContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Eventos de teclado para accesibilidad
+        document.addEventListener('keydown', function(e) {
+            // Envío con Ctrl+Enter
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('submitBtn').click();
+            }
+            
+            // Navegación con Tab mejorada
+            if (e.key === 'Tab') {
+                const focusableElements = document.querySelectorAll(
+                    'input, button, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+                
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
+        // Prevenir envío múltiple del formulario
+        document.getElementById('devopsForm').addEventListener('submit', function() {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            
+            // Rehabilitar botón después de 5 segundos como failsafe
+            setTimeout(() => {
+                submitBtn.disabled = false;
+            }, 5000);
+        });
+
+        // Persistencia del progreso en localStorage (opcional)
+        function saveProgress() {
+            const formData = new FormData(document.getElementById('devopsForm'));
+            const data = Object.fromEntries(formData.entries());
+            localStorage.setItem('devopsFormProgress', JSON.stringify(data));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('devopsFormProgress');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.entries(data).forEach(([name, value]) => {
+                        const input = document.querySelector(`[name="${name}"]`);
+                        if (input) {
+                            if (input.type === 'radio' || input.type === 'checkbox') {
+                                input.checked = true;
+                                input.closest('.form-check-option')?.classList.add('selected');
+                            } else {
+                                input.value = value;
+                            }
+                        }
+                    });
+                    updateProgress();
+                } catch (e) {
+                    console.warn('Error loading saved progress:', e);
+                }
+            }
+        }
+
+        // Auto-guardar progreso cada 30 segundos
+        setInterval(saveProgress, 30000);
+        
+        // Event listeners para el modal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cerrar modal con botón X
+            document.querySelector('#analysisResultModal .btn-close').addEventListener('click', closeAnalysisModal);
+            
+            // Cerrar modal con botón "Cerrar"
+            document.querySelector('#analysisResultModal .btn-secondary').addEventListener('click', closeAnalysisModal);
+            
+            // Cerrar modal clickeando fuera de él
+            document.getElementById('analysisResultModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAnalysisModal();
+                }
+            });
+            
+            // Cerrar modal con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('analysisResultModal');
+                    if (modal.classList.contains('show')) {
+                        closeAnalysisModal();
+                    }
+                }
+            });
+        });
+        
+        // Cargar progreso al inicializar (comentado por defecto)
+        // loadProgress();
+    </script>
+</body>
+</html>
