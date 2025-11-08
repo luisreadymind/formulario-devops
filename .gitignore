@@ -1,6 +1,7 @@
 *.pyc
 __pycache__/
 .env
+.env.local
 *.pdf
 logs/
 .DS_Store
