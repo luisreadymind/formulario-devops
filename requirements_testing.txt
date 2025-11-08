@@ -1,8 +1,0 @@
-# Script de Testing - Formulario DevOps ReadyMind
-# Dependencias requeridas para automated testing
-
-selenium==4.15.2
-chromedriver-autoinstaller==0.6.2
-webdriver-manager==4.0.1
-requests==2.31.0
-pillow==10.1.0
